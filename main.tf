@@ -1,23 +1,16 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "4.12.1"
-    }
-  }
-}
-
 # Configure the AWS Provider
 provider "aws" {
-  region = "ap-south-1" # Define region as per your account
+  region = "us-east-1"
 }
 
-resource "aws_s3_bucket" "K21_CI_CD_Bucket" {
-  bucket = "k21-demo-github-action-tf"
 
+module "s3-bucket" {
+  source  = "terraform-aws-modules/s3-bucket/aws"
+ 
+  
+  bucket = "k21-demo-github-action-tf-12nov2024"
   object_lock_enabled = false
-
   tags = {
-    Environment = "Prod"
+     Environment = "Prod"
   }
 }
